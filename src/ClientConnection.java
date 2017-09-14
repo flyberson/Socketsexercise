@@ -1,6 +1,7 @@
 
 import	java.io.*;
 import	java.net.*;
+import java.util.ArrayList;
 import	java.util.Scanner;
 
 public	class	ClientConnection	implements	Runnable{
@@ -32,9 +33,18 @@ public	class	ClientConnection	implements	Runnable{
                     if (stream.equals("luk ned")) {
                         done = true;
                     } else {
+
+                         ArrayList al = Server.getArrayList();
+                        for (int i = 0; i <10 ; i++) {
+                            al.get(i);
+
+                        }
+
+                            oos.writeObject(stream + stream.length());
+
                         //out.println("in loop2");
                         //oos.writeObject(stream + stream.length());
-                        out.println(stream+stream.length());
+                       // out.println(stream+stream.length());
 
                     }
                 }

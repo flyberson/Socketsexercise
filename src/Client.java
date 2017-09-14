@@ -33,28 +33,28 @@ public class Client {
 
 
                 out.println("Første besked");
-//                System.out.println(ois.readObject().toString());
-                System.out.println(scan.nextLine());
+                System.out.println(ois.readObject().toString());
+               // System.out.println(scan.nextLine());
 
                 //modtag velkomst
 
 
                 out.println("Anden besked");
-                //System.out.println(ois.readObject().toString());
-                System.out.println(scan.nextLine());
+                System.out.println(ois.readObject().toString());
+                //System.out.println(scan.nextLine());
 
 
                 out.println("Tredie besked");
-                //System.out.println(ois.readObject().toString());
-                System.out.println(scan.nextLine());
+                System.out.println(ois.readObject().toString());
+                //System.out.println(scan.nextLine());
 
                 s.close();
                 System.out.println("Forbindelsen lukket.");
             }
         }   catch (IOException ex){
             ex.printStackTrace();
-        } /*catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }
