@@ -32,7 +32,6 @@ public class Client {
                 String welcome = scan.nextLine();
                 System.out.println(welcome);
 
-                //modtag velkomst
                 System.out.println(scan.nextLine());
 
                 System.out.println(scan.nextLine());
