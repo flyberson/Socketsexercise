@@ -12,7 +12,13 @@ public class Server {
             System.out.println("Server kører...");
 
             while(true){
+
                 Socket s =ss.accept();
+
+                Runnable r = new ClientConnection(s);
+                Thread t = new Thread(r);
+                t.start();
+                /*
                 System.out.println("Klient forbundet");
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
@@ -36,14 +42,14 @@ public class Server {
                     }
                     else{
                         //out.println("in loop2");
-                        oos.writeObject(stream);
+                        oos.writeObject(stream+stream.length());
                         //out.println(stream+stream.length());
 
                     }
                 }
                 oos.close();
                 s.close();
-                System.out.println("Forbindelsen lukket");
+                System.out.println("Forbindelsen lukket");*/
             }
         } catch (IOException e) {
             e.printStackTrace();
