@@ -1,5 +1,5 @@
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
 import java.util.Scanner;
 
 /**
@@ -19,6 +19,7 @@ public class Client {
                 //socket streams
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
+                ObjectInputStream ois = new ObjectInputStream(input);
 
                 //input scanner
                 Scanner scan = new Scanner(input);
@@ -29,22 +30,31 @@ public class Client {
                 String welcome = scan.nextLine();
                 System.out.println(welcome);
 
+
+
                 out.println("Første besked");
+                System.out.println(ois.readObject().toString());
+                //System.out.println(scan.nextLine());
 
                 //modtag velkomst
-                System.out.println(scan.nextLine());
+
+
                 out.println("Anden besked");
+                System.out.println(ois.readObject().toString());
+                //System.out.println(scan.nextLine());
 
-                System.out.println(scan.nextLine());
+
                 out.println("Tredie besked");
-
-                System.out.println(scan.nextLine());
+                System.out.println(ois.readObject().toString());
+                //System.out.println(scan.nextLine());
 
                 s.close();
                 System.out.println("Forbindelsen lukket.");
             }
         }   catch (IOException ex){
             ex.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

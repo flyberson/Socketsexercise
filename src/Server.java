@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 
-public class server {
+public class Server {
     public static void main(String[] args){
 
         try {
@@ -17,6 +17,7 @@ public class server {
                 System.out.println("Klient forbundet");
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
+                ObjectOutputStream oos= new ObjectOutputStream(output);
 
 
                 Scanner in = new Scanner(input);
@@ -26,15 +27,22 @@ public class server {
                 out.println("Velkommen");
 
                 boolean done= false;
-                while(!done&&in.hasNextLine()){
-                       String stream = in.nextLine();
-        if(stream.equals("luk ned")){
-            done=true;
-        }
-        else{
-            out.println(stream);
-        }
+                while(!done&& in.hasNextLine()){
+                    String stream = in.nextLine();
+                    //out.println("in loop");
+
+
+                    if(stream.equals("luk ned")){
+                        done=true;
+                    }
+                    else{
+                        //out.println("in loop2");
+                        oos.writeObject(stream);
+                        //out.println(stream+stream.length());
+
+                    }
                 }
+                oos.close();
                 s.close();
                 System.out.println("Forbindelsen lukket");
             }
