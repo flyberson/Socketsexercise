@@ -34,7 +34,6 @@ public class server {
         else{
             out.println(stream);
         }
-
                 }
                 s.close();
                 System.out.println("Forbindelsen lukket");
