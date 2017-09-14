@@ -3,8 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-import static java.lang.System.in;
-import static java.lang.System.out;
+
 
 public class server {
     public static void main(String[] args){
@@ -22,6 +21,7 @@ public class server {
 
                 Scanner in = new Scanner(input);
 
+                PrintWriter out = new PrintWriter(output,true);
 
                 out.println("Velkommen");
 
