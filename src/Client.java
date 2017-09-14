@@ -1,7 +1,4 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -32,10 +29,14 @@ public class Client {
                 String welcome = scan.nextLine();
                 System.out.println(welcome);
 
+                out.println("Første besked");
+
                 //modtag velkomst
                 System.out.println(scan.nextLine());
+                out.println("Anden besked");
 
                 System.out.println(scan.nextLine());
+                out.println("Tredie besked");
 
                 System.out.println(scan.nextLine());
 
