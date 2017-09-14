@@ -1,4 +1,4 @@
-package PACKAGE_NAME;/**
+/**
  * 14-09-2017
  *
  * @author Mads Heilberg
