@@ -4,7 +4,6 @@ import java.net.Socket;
 import java.util.Scanner;
 
 
-
 public class Server {
     public static void main(String[] args){
 
@@ -49,7 +48,5 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
