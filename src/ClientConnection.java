@@ -9,13 +9,15 @@ public	class	ClientConnection	implements	Runnable{
     ArrayList <ClientConnection> al;
     OutputStream output;
     ObjectOutputStream oos;
+    InputStream is;
 
 
-    public ClientConnection(Socket s, OutputStream o,ObjectOutputStream oos) throws SocketException,IOException{
+    public ClientConnection(Socket s, OutputStream o,ObjectOutputStream oos, InputStream is) throws SocketException,IOException{
 
         this.s = s;
         this.output=o;
         this.oos= oos;
+        this.is=is;
 
     }
 
@@ -27,13 +29,11 @@ public	class	ClientConnection	implements	Runnable{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            // PrintWriter out = new PrintWriter(output, true);
-                //out.println(string);
-                //out.println("Print to all");
+
 
 
     }
-    public ClientConnection getClient(){
+    public ClientConnection getClient(String string){
 
         al = Server.getArrayList();
         ClientConnection c = null;
@@ -42,7 +42,7 @@ public	class	ClientConnection	implements	Runnable{
             System.out.println("In loop write");
 
             c = al.get(i);
-            c.writeToClient("Writing to client");
+            c.writeToClient("Writing to client"+string);
 
 
         }
@@ -53,11 +53,11 @@ public	class	ClientConnection	implements	Runnable{
     public void run(){
         try {
             try {
-                InputStream input = s.getInputStream();
+                is = Server.getIs();
                 //OutputStream output = s.getOutputStream();
                 //ObjectOutputStream oos = new ObjectOutputStream(output);
                // PrintWriter out= new PrintWriter(output,true);
-                Scanner in = new Scanner(input);
+                Scanner in = new Scanner(is);
 
                // out.println("Velkommen");
                 writeToClient("Velkommen");
@@ -73,12 +73,8 @@ public	class	ClientConnection	implements	Runnable{
                         done = true;
                     } else {
                         System.out.println("Second");
-                        //out.println("in loop2");
-                       // oos.writeObject(stream + stream.length());
-                        //writeToClient(stream);
-                       // oos.writeObject(al.size());
-                        //out.println(stream+stream.length());
-                        getClient();
+
+                        getClient(stream);
 
                     }
                 }

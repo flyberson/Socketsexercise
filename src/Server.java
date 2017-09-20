@@ -9,6 +9,15 @@ public class Server {
     private static ArrayList<ClientConnection> al;
     private static OutputStream outputStream;
     private static ObjectOutputStream oos;
+    private static InputStream is;
+
+    public static InputStream getIs() {
+        return is;
+    }
+
+    public static void setIs(InputStream is) {
+        Server.is = is;
+    }
 
     public OutputStream getOutputStream() {
         return outputStream;
@@ -47,7 +56,8 @@ public class Server {
                 Socket s =ss.accept();
                 outputStream= s.getOutputStream();
                 oos= new ObjectOutputStream(outputStream);
-                ClientConnection client= new ClientConnection(s,outputStream,oos);
+                is = s.getInputStream();
+                ClientConnection client= new ClientConnection(s,outputStream,oos,is);
                 Runnable r = client;
                 al.add(client);
                 //Runnable r = new ClientConnection(s);
