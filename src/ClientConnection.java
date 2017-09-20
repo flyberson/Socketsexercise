@@ -23,7 +23,7 @@ public	class	ClientConnection	implements	Runnable{
 
 
             try {
-                oos.writeObject(string);
+                oos.writeObject(string.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
