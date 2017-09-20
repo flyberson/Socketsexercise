@@ -33,8 +33,8 @@ public	class	ClientConnection	implements	Runnable{
                         done = true;
                     } else {
                         //out.println("in loop2");
-                        //oos.writeObject(stream + stream.length());
-                        out.println(stream+stream.length());
+                        oos.writeObject(stream + stream.length());
+                        //out.println(stream+stream.length());
 
                     }
                 }
