@@ -6,7 +6,7 @@ import	java.util.Scanner;
 
 public	class	ClientConnection	implements	Runnable{
     private Socket s;
-    ArrayList al;
+    ArrayList <ClientConnection> al;
     OutputStream output;
     ObjectOutputStream oos;
 
@@ -20,12 +20,6 @@ public	class	ClientConnection	implements	Runnable{
     }
 
     public void writeToClient (String string){
-        al = Server.getArrayList();
-
-        for (int i = 0; i <al.size() ; i++) {
-            System.out.println("In loop write");
-
-            al.get(i);
 
 
             try {
@@ -37,7 +31,22 @@ public	class	ClientConnection	implements	Runnable{
                 //out.println(string);
                 //out.println("Print to all");
 
+
+    }
+    public ClientConnection getClient(){
+
+        al = Server.getArrayList();
+        ClientConnection c = null;
+
+        for (int i = 0; i <al.size() ; i++) {
+            System.out.println("In loop write");
+
+            c = al.get(i);
+            c.writeToClient("Writing to client");
+
+
         }
+        return c;
     }
 
     @Override
@@ -66,9 +75,10 @@ public	class	ClientConnection	implements	Runnable{
                         System.out.println("Second");
                         //out.println("in loop2");
                        // oos.writeObject(stream + stream.length());
-                        writeToClient(stream);
+                        //writeToClient(stream);
                        // oos.writeObject(al.size());
                         //out.println(stream+stream.length());
+                        getClient();
 
                     }
                 }
