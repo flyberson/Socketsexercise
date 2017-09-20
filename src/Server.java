@@ -7,7 +7,24 @@ import java.util.Scanner;
 
 public class Server {
     private static ArrayList<ClientConnection> al;
+    private static OutputStream outputStream;
+    private static ObjectOutputStream oos;
 
+    public OutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    public void setOutputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public ObjectOutputStream getOos() {
+        return oos;
+    }
+
+    public void setOos(ObjectOutputStream oos) {
+        this.oos = oos;
+    }
 
     public static ArrayList getArrayList(){
 
@@ -26,8 +43,11 @@ public class Server {
 
             while(true){
 
+
                 Socket s =ss.accept();
-                ClientConnection client= new ClientConnection(s);
+                outputStream= s.getOutputStream();
+                oos= new ObjectOutputStream(outputStream);
+                ClientConnection client= new ClientConnection(s,outputStream,oos);
                 Runnable r = client;
                 al.add(client);
                 //Runnable r = new ClientConnection(s);

@@ -27,8 +27,8 @@ public class Client {
                 PrintWriter out = new PrintWriter(output, true);
 
                 //scanner starts, modtag velkomst
-                String welcome = scan.nextLine();
-                System.out.println(welcome);
+                //String welcome = scan.nextLine();
+                //System.out.println(welcome);
 
 
 
@@ -38,6 +38,8 @@ public class Client {
 
                 //modtag velkomst
 
+                //scan.nextLine();
+                //System.out.println(ois.readObject().toString());
 
                 out.println("Anden besked");
                 System.out.println(ois.readObject().toString());
