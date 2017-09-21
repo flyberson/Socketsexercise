@@ -1,14 +1,17 @@
 package GUI;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GUIController extends Application {
+    @FXML private Button buttonCount;
 
     public static void main(String[] args) {
         launch(args);
@@ -22,6 +25,10 @@ public class GUIController extends Application {
         Scene scene = new Scene(root,800,800);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+
+
 
     }
 }
