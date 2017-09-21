@@ -33,6 +33,7 @@ public	class	ClientConnection	implements	Runnable{
 
 
     }
+
     public ClientConnection getClient(String string){
 
         al = Server.getArrayList();
@@ -66,7 +67,7 @@ public	class	ClientConnection	implements	Runnable{
 
                 while (!done && in.hasNextLine()) {
                     String stream = in.nextLine();
-                    //out.println("in loop");
+
 
                     System.out.println("First");
                     if (stream.equals("luk ned")) {
@@ -82,7 +83,7 @@ public	class	ClientConnection	implements	Runnable{
             }  finally {
 
                 s.close();
-                //System.out.println("Forbindelsen lukket");
+                System.out.println("Forbindelsen lukket");
             }
             }catch (IOException e) {
             e.printStackTrace();

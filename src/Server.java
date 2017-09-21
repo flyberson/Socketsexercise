@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -41,8 +42,10 @@ public class Server {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
+        DatagramSocket serverSocket=new DatagramSocket(9876);
         al = new ArrayList();
+
 
 
 
@@ -65,38 +68,7 @@ public class Server {
 
                 Thread t = new Thread(r);
                 t.start();
-                /*
-                System.out.println("Klient forbundet");
-                InputStream input = s.getInputStream();
-                OutputStream output = s.getOutputStream();
-                ObjectOutputStream oos= new ObjectOutputStream(output);
 
-
-                Scanner in = new Scanner(input);
-
-                PrintWriter out = new PrintWriter(output,true);
-
-                out.println("Velkommen");
-
-                boolean done= false;
-                while(!done&& in.hasNextLine()){
-                    String stream = in.nextLine();
-                    //out.println("in loop");
-
-
-                    if(stream.equals("luk ned")){
-                        done=true;
-                    }
-                    else{
-                        //out.println("in loop2");
-                        oos.writeObject(stream+stream.length());
-                        //out.println(stream+stream.length());
-
-                    }
-                }
-                oos.close();
-                s.close();
-                System.out.println("Forbindelsen lukket");*/
             }
         } catch (IOException e) {
             e.printStackTrace();
