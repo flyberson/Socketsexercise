@@ -22,7 +22,7 @@ public class GUIController extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException, InterruptedException {
 
         Parent root = FXMLLoader.load(getClass().getResource("GUIRequests.fxml"));
 

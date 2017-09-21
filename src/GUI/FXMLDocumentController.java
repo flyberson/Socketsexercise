@@ -23,32 +23,43 @@ public class FXMLDocumentController implements Initializable{
 @FXML private Button buttonPut;
 Writer writer;
 @FXML private TextField textPut;
-@FXML private static TextArea textView;
+@FXML private TextArea textView;
+    String what;
+private boolean done=false;
 
 
 private static void updateTextView (){
     //textView.setText();
 }
 
-public void getConnection(){
+public void getConnection() throws InterruptedException {
     try{
         Socket s = new Socket("127.0.0.1", 8001);
 
 
 
-        //socket streams
-        InputStream input = s.getInputStream();
-        OutputStream output = s.getOutputStream();
-        writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
-
+            //socket streams
+            InputStream input = s.getInputStream();
+            OutputStream output = s.getOutputStream();
+            writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
 
         //input scanner
         Scanner scan = new Scanner(input);
 
+        //while(!done&& scan.hasNextLine()){
+            what = scan.next();
+        System.out.println(what + "hello");
 
 
 
 
+
+
+
+
+        //}
+
+        s.close();
 
 
 
@@ -64,14 +75,17 @@ public void getConnection(){
     buttonCount.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            try {
+           // try {
+            System.out.println(what);
+            textView.setText(what);
+                //textView.setText("Hello");
                 //getConnection();
-                System.out.println("Activated Count");
+               /* System.out.println("Activated Count");
                 writer.write("COUNT");
-                writer.flush();
-            } catch (IOException e) {
+                writer.flush();*/
+           /* } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     });
 
