@@ -19,7 +19,7 @@ public	class	ClientConnection	implements	Runnable{
         System.out.println("[NAME REQUEST SAVED]");
     }
 
-    public void requestPut(String name, String input){
+    public void requestPut(String input){
         String save = name + ": " + input;
         stringArray.add(save);
         System.out.println("[PUT REQUEST SAVED TO ARRAY]");
@@ -47,11 +47,11 @@ public	class	ClientConnection	implements	Runnable{
     }
 
     public void writeToClient (String string){
-            try {
-                oos.writeObject(string.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //try {
+                PrintWriter writer = new PrintWriter(output, true);
+                writer.write(string);
+      //      } catch (IOException e) {
+        ////  }
     }
 
     public ClientConnection getClient(String string){
@@ -91,24 +91,28 @@ public	class	ClientConnection	implements	Runnable{
                     if (stream.equalsIgnoreCase("Exit")) {
                         done = true;
                     } else if(stream.substring(0, 5).equals("NAME:")) {
+                        
                         requestName(stream.substring(5));
                         System.out.println("Name is now: " + name);
                     } else if(stream.substring(0, 4).equals("PUT:")){
-                        requestPut(name, stream.substring(4));
+                        requestPut(stream.substring(4));
                         writeToClient("Saved string: " + stringArray.get(0));
                     } else if(stream.substring(0, 5).equals("COUNT")){
                         writeToClient("COUNT " + Integer.toString(requestCount()));
                     } else if(stream.substring(0, 4).equals("GET:")){
                         writeToClient(requestGetX(Integer.parseInt(stream.substring(4, 5))));
+                    } else {
+                        writeToClient("[ERROR]");
                     }
 
                     // getClient(stream);
                 }
                 //oos.close();
+
             }  finally {
 
                 s.close();
-                System.out.println("Connection closed");
+                System.out.println("[CONNECTION CLOSED]");
             }
             }catch (IOException e) {
             e.printStackTrace();
