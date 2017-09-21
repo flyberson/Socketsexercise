@@ -19,44 +19,22 @@ public class Client {
                 //socket streams
                 InputStream input = s.getInputStream();
                 OutputStream output = s.getOutputStream();
-                ObjectInputStream ois = new ObjectInputStream(input);
 
                 //input scanner
                 Scanner scan = new Scanner(input);
-
+                Scanner scan2 = new Scanner(System.in);
                 PrintWriter out = new PrintWriter(output, true);
 
-                //scanner starts, modtag velkomst
-                //String welcome = scan.nextLine();
-                //System.out.println(welcome);
+                String welcome = scan.nextLine();
+                System.out.println(welcome);
 
-
-
-                out.println("Første besked");
-                System.out.println(ois.readObject().toString());
-                //System.out.println(scan.nextLine());
-
-                //modtag velkomst
-
-                //scan.nextLine();
-                //System.out.println(ois.readObject().toString());
-
-                out.println("Anden besked");
-                System.out.println(ois.readObject().toString());
-                //System.out.println(scan.nextLine());
-
-
-                out.println("Tredie besked");
-                System.out.println(ois.readObject().toString());
-                //System.out.println(scan.nextLine());
+                out.print(scan2.nextLine());
 
                 s.close();
-                System.out.println("Forbindelsen lukket.");
+                System.out.println("[Connection Closed]");
             }
         }   catch (IOException ex){
             ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 }
