@@ -41,7 +41,6 @@ public	class	ClientConnection	implements	Runnable{
     }
 
 
-
     public ClientConnection(Socket s) throws SocketException,IOException{
 
         this.s = s;
@@ -88,10 +87,10 @@ public	class	ClientConnection	implements	Runnable{
                 //is = Server.getIs();
                 //OutputStream output = s.getOutputStream();
                 //ObjectOutputStream oos = new ObjectOutputStream(output);
-               // PrintWriter out= new PrintWriter(output,true);
+                // PrintWriter out= new PrintWriter(output,true);
                 Scanner in = new Scanner(input);
 
-               // out.println("Velkommen");
+                // out.println("Velkommen");
                 writeToClient("Welcome " + name);
 
                 boolean done = false;
@@ -99,25 +98,35 @@ public	class	ClientConnection	implements	Runnable{
                 while (!done && in.hasNextLine()) {
                     String stream = in.nextLine();
 
-                    if (stream.equalsIgnoreCase("Exit")) {
-                        done = true;
-                    } else if(stream.substring(0, 5).equals("NAME:")) {
-                        
-                        requestName(stream.substring(5));
-                        System.out.println("Name is now: " + name);
-                    } else if(stream.substring(0, 4).equals("PUT:")){
-                        requestPut(stream.substring(4));
-                        writeToClient("Saved string: " + stringArray.get(0));
-                    } else if(stream.substring(0, 5).equals("COUNT")){
-                        writeToClient("COUNT " + Integer.toString(requestCount()));
-                    } else if(stream.substring(0, 4).equals("GET:")){
-                        writeToClient(requestGetX(Integer.parseInt(stream.substring(4, 5))));
-                    } else {
-                        writeToClient("[ERROR]");
-                    }
+                    //if (stream.length() >= 4) {
 
-                    // getClient(stream);
+                        try {
+
+                            if (stream.equalsIgnoreCase("Exit")) {
+                                done = true;
+                            }
+
+                            if (stream.substring(0, 5).equals("NAME:")) {
+                                requestName(stream.substring(5));
+                                System.out.println("Name is now: " + name);
+                            } else if (stream.substring(0, 4).equals("PUT:")) {
+                                requestPut(stream.substring(4));
+                                writeToClient("Saved string: " + stringArray.get(0));
+                            } else if (stream.substring(0, 5).equals("COUNT")) {
+                                writeToClient("COUNT " + Integer.toString(requestCount()));
+                            } else if (stream.substring(0, 4).equals("GET:")) {
+                                writeToClient(requestGetX(Integer.parseInt(stream.substring(4, 5))));
+                            } else {
+                                writeToClient("[ERROR]");
+                            }
+                            // getClient(stream);
+                        } catch(StringIndexOutOfBoundsException e){
+                            writeToClient("[ERROR]");
+                            e.printStackTrace();
+                        }
                 }
+
+
                 //oos.close();
 
             }  finally {
