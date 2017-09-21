@@ -17,6 +17,7 @@ public	class	ClientConnection	implements	Runnable{
     public void requestName(String input){
         name = input;
         System.out.println("[NAME REQUEST SAVED]");
+
     }
 
     public void requestPut(String input){
