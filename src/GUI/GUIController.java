@@ -30,6 +30,8 @@ public class GUIController extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        FXMLDocumentController controller = new FXMLDocumentController();
+        controller.getConnection();
 
     }
 

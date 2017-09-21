@@ -65,6 +65,7 @@ public class Server {
 
                 Thread t = new Thread(r);
                 t.start();
+                System.out.println("Client connected");
 
             }
         } catch (IOException e) {

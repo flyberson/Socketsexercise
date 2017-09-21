@@ -1,4 +1,3 @@
-
 import	java.io.*;
 import	java.net.*;
 import java.util.ArrayList;
@@ -104,9 +103,7 @@ public	class	ClientConnection	implements	Runnable{
 
                             if (stream.equalsIgnoreCase("Exit")) {
                                 done = true;
-                            }
-
-                            if (stream.substring(0, 5).equals("NAME:")) {
+                            } else if (stream.substring(0, 5).equals("NAME:")) {
                                 requestName(stream.substring(5));
                                 System.out.println("Name is now: " + name);
                             } else if (stream.substring(0, 4).equals("PUT:")) {
@@ -125,12 +122,8 @@ public	class	ClientConnection	implements	Runnable{
                             e.printStackTrace();
                         }
                 }
-
-
                 //oos.close();
-
             }  finally {
-
                 s.close();
                 System.out.println("[CONNECTION CLOSED]");
             }

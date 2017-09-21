@@ -30,7 +30,7 @@ private static void updateTextView (){
     //textView.setText();
 }
 
-private void getConnection(){
+public void getConnection(){
     try{
         Socket s = new Socket("127.0.0.1", 8001);
 
@@ -65,7 +65,7 @@ private void getConnection(){
         @Override
         public void handle(ActionEvent event) {
             try {
-                getConnection();
+                //getConnection();
                 System.out.println("Activated Count");
                 writer.write("COUNT");
                 writer.flush();
