@@ -11,6 +11,33 @@ public	class	ClientConnection	implements	Runnable{
     ObjectOutputStream oos;
     InputStream is;
 
+    private String name = "Guest";
+    static ArrayList<String> stringArray = new ArrayList<>();
+
+    public void requestName(String input){
+        name = input;
+        System.out.println("[NAME REQUEST SAVED]");
+    }
+
+    public void requestPut(String name, String input){
+        String save = name + ": " + input;
+        stringArray.add(save);
+        System.out.println("[PUT REQUEST SAVED TO ARRAY]");
+    }
+
+    public int requestCount(){
+        System.out.println("[ARRAY SIZE RETURNED]");
+        return stringArray.size();
+    }
+
+    public String requestGetX(int x){
+        String stringX = stringArray.get(x);
+        System.out.println("[STRING " + x + " RETURNED]");
+        return stringX;
+
+    }
+
+
 
     public ClientConnection(Socket s, OutputStream o, InputStream is) throws SocketException,IOException{
 
@@ -22,16 +49,11 @@ public	class	ClientConnection	implements	Runnable{
     }
 
     public void writeToClient (String string){
-
-
             try {
                 oos.writeObject(string.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-
     }
 
     public ClientConnection getClient(String string){
@@ -61,29 +83,34 @@ public	class	ClientConnection	implements	Runnable{
                 Scanner in = new Scanner(is);
 
                // out.println("Velkommen");
-                writeToClient("Velkommen");
+                writeToClient("Welcome " + name);
 
                 boolean done = false;
 
                 while (!done && in.hasNextLine()) {
                     String stream = in.nextLine();
 
-
-                    System.out.println("First");
-                    if (stream.equals("luk ned")) {
+                    if (stream.equalsIgnoreCase("Exit")) {
                         done = true;
-                    } else {
-                        System.out.println("Second");
-
-                        getClient(stream);
-
+                    } else if(stream.substring(0, 5).equals("NAME:")) {
+                        requestName(stream.substring(5));
+                        System.out.println("Name is now: " + name);
+                    } else if(stream.substring(0, 4).equals("PUT:")){
+                        requestPut(name, stream.substring(4));
+                        writeToClient("Saved string: " + stringArray.get(0));
+                    } else if(stream.substring(0, 5).equals("COUNT")){
+                        writeToClient("COUNT " + Integer.toString(requestCount()));
+                    } else if(stream.substring(0, 4).equals("GET:")){
+                        writeToClient(requestGetX(Integer.parseInt(stream.substring(4, 5))));
                     }
+
+                    // getClient(stream);
                 }
                 //oos.close();
             }  finally {
 
                 s.close();
-                System.out.println("Forbindelsen lukket");
+                System.out.println("Connection closed");
             }
             }catch (IOException e) {
             e.printStackTrace();
