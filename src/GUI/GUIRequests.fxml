@@ -14,5 +14,6 @@
       <Button fx:id="buttonPut" layoutX="57.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleButtonPut" prefHeight="26.0" prefWidth="57.0" text="Put" />
       <TextArea fx:id="textView" layoutX="355.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="373.0" layoutY="21.0" text="View" />
+      <Button fx:id="connect" layoutX="55.0" layoutY="323.0" mnemonicParsing="false" onAction="#getConnection" text="Connect" />
    </children>
 </AnchorPane>

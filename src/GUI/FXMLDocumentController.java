@@ -37,7 +37,7 @@ private static void updateTextView (){
     public FXMLDocumentController() {
     }
 
-    public void getConnection() throws InterruptedException {
+    public void getConnection() {
     try{
         Socket s = new Socket("127.0.0.1", 8001);
 
@@ -52,10 +52,10 @@ private static void updateTextView (){
         Scanner scan = new Scanner(input);
 
         //while(!done&& scan.hasNextLine()){
-            what = scan.next();
+           // what = scan.next();
 
            // if(scan.next()=="hello"){
-                done=false;
+                //done=false;
           //  }
 
 
@@ -68,15 +68,37 @@ private static void updateTextView (){
 
         //}
 
-        //s.close();
-
 
 
     }   catch (IOException ex){
+        System.out.println("here2");
         ex.printStackTrace();
     }
+        System.out.println("hello3");
 }
 
+    @FXML private void handleButtonConnect(ActionEvent event){
+        buttonCount.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    System.out.println("herebeforeconnect");
+                    getConnection();
+                    System.out.println("hereinsideconnect");
+                    writer.write("COUNT");
+
+                    writer.flush();
+                    writer.write("EXIT");
+
+                    writer.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
 
 
 
