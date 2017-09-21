@@ -50,7 +50,7 @@ private void getConnection(){
 
 
 
-        System.out.println("Forbindelsen lukket.");
+
 
     }   catch (IOException ex){
         ex.printStackTrace();
@@ -65,7 +65,10 @@ private void getConnection(){
         @Override
         public void handle(ActionEvent event) {
             try {
+                getConnection();
+                System.out.println("Activated Count");
                 writer.write("COUNT");
+                writer.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,7 +83,9 @@ private void getConnection(){
             @Override
             public void handle(ActionEvent event) {
                 try {
+                    System.out.println(textPut.getText());
                     writer.write("PUT:"+textPut.getText());
+                    writer.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
