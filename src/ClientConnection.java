@@ -124,7 +124,7 @@ public	class	ClientConnection	implements	Runnable{
                 }
                 //oos.close();
             }  finally {
-                s.close();
+                //s.close();
                 System.out.println("[CONNECTION CLOSED]");
             }
             }catch (IOException e) {

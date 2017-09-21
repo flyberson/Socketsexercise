@@ -22,6 +22,8 @@ public class FXMLDocumentController implements Initializable{
 @FXML private Button buttonCount;
 @FXML private Button buttonPut;
 Writer writer;
+    InputStream input;
+    OutputStream output;
 @FXML private TextField textPut;
 @FXML private TextArea textView;
     private static String what;
@@ -42,8 +44,8 @@ private static void updateTextView (){
 
 
             //socket streams
-            InputStream input = s.getInputStream();
-            OutputStream output = s.getOutputStream();
+            input = s.getInputStream();
+             output = s.getOutputStream();
             writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
 
         //input scanner
@@ -51,7 +53,11 @@ private static void updateTextView (){
 
         //while(!done&& scan.hasNextLine()){
             what = scan.next();
-            
+
+           // if(scan.next()=="hello"){
+                done=false;
+          //  }
+
 
 
 
@@ -62,7 +68,7 @@ private static void updateTextView (){
 
         //}
 
-        s.close();
+        //s.close();
 
 
 
@@ -78,17 +84,18 @@ private static void updateTextView (){
     buttonCount.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-           // try {
-            System.out.println(what);
             textView.setText(what);
-                //textView.setText("Hello");
-                //getConnection();
-               /* System.out.println("Activated Count");
-                writer.write("COUNT");
-                writer.flush();*/
-           /* } catch (IOException e) {
+            try {
+                writer = new OutputStreamWriter(output, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-            }*/
+            }
+            try{writer.write("COUNT");
+
+                writer.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     });
 
