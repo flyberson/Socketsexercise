@@ -57,7 +57,7 @@ public class Server {
 
 
                 Socket s =ss.accept();
-                outputStream= s.getOutputStream();
+                outputStream = s.getOutputStream();
                 oos= new ObjectOutputStream(outputStream);
                 is = s.getInputStream();
                 ClientConnection client= new ClientConnection(s,outputStream,oos,is);
