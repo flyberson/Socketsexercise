@@ -21,9 +21,9 @@ import javafx.scene.control.TextField;
 public class FXMLDocumentController implements Initializable{
 @FXML private Button buttonCount;
 @FXML private Button buttonPut;
-Writer writer;
-    InputStream input;
-    OutputStream output;
+private static Writer writer;
+   private static InputStream input;
+   private static OutputStream output;
 @FXML private TextField textPut;
 @FXML private TextArea textView;
     private static String what;
@@ -85,11 +85,7 @@ private static void updateTextView (){
         @Override
         public void handle(ActionEvent event) {
             textView.setText(what);
-            try {
-                writer = new OutputStreamWriter(output, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
             try{writer.write("COUNT");
 
                 writer.flush();
