@@ -28,13 +28,13 @@ public class Server {
         this.outputStream = outputStream;
     }
 
-    public ObjectOutputStream getOos() {
+    /*public ObjectOutputStream getOos() {
         return oos;
-    }
+    }*/
 
-    public void setOos(ObjectOutputStream oos) {
+   /* public void setOos(ObjectOutputStream oos) {
         this.oos = oos;
-    }
+    }*/
 
     public static ArrayList getArrayList(){
 
@@ -43,7 +43,7 @@ public class Server {
     }
 
     public static void main(String[] args) throws Exception{
-        DatagramSocket serverSocket=new DatagramSocket(9876);
+
         al = new ArrayList();
 
 
@@ -57,10 +57,10 @@ public class Server {
 
 
                 Socket s =ss.accept();
-                outputStream = s.getOutputStream();
-                oos= new ObjectOutputStream(outputStream);
+                outputStream= s.getOutputStream();
+                //oos= new ObjectOutputStream(outputStream);
                 is = s.getInputStream();
-                ClientConnection client= new ClientConnection(s,outputStream,oos,is);
+                ClientConnection client= new ClientConnection(s,outputStream,is);
                 Runnable r = client;
                 al.add(client);
                 //Runnable r = new ClientConnection(s);
