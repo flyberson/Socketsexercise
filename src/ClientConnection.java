@@ -12,11 +12,11 @@ public	class	ClientConnection	implements	Runnable{
     InputStream is;
 
 
-    public ClientConnection(Socket s, OutputStream o,ObjectOutputStream oos, InputStream is) throws SocketException,IOException{
+    public ClientConnection(Socket s, OutputStream o, InputStream is) throws SocketException,IOException{
 
         this.s = s;
         this.output=o;
-        this.oos= oos;
+        //this.oos= oos;
         this.is=is;
 
     }
