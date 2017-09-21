@@ -24,7 +24,7 @@ public class FXMLDocumentController implements Initializable{
 Writer writer;
 @FXML private TextField textPut;
 @FXML private TextArea textView;
-    String what;
+    private static String what;
 private boolean done=false;
 
 
@@ -32,7 +32,10 @@ private static void updateTextView (){
     //textView.setText();
 }
 
-public void getConnection() throws InterruptedException {
+    public FXMLDocumentController() {
+    }
+
+    public void getConnection() throws InterruptedException {
     try{
         Socket s = new Socket("127.0.0.1", 8001);
 
@@ -48,7 +51,7 @@ public void getConnection() throws InterruptedException {
 
         //while(!done&& scan.hasNextLine()){
             what = scan.next();
-        System.out.println(what + "hello");
+            
 
 
 
