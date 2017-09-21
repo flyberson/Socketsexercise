@@ -8,8 +8,10 @@ public	class	ClientConnection	implements	Runnable{
     private Socket s;
     ArrayList <ClientConnection> al;
     OutputStream output;
-    ObjectOutputStream oos;
-    InputStream is;
+    InputStream input;
+    //PrintWriter writer;
+    Writer writer;
+
 
     private String name = "Guest";
     static ArrayList<String> stringArray = new ArrayList<>();
@@ -40,24 +42,30 @@ public	class	ClientConnection	implements	Runnable{
 
 
 
-    public ClientConnection(Socket s, OutputStream o, InputStream is) throws SocketException,IOException{
+    public ClientConnection(Socket s) throws SocketException,IOException{
 
         this.s = s;
-        this.output=o;
+
+        output =s.getOutputStream();
         //this.oos= oos;
-        this.is=is;
+        input=s.getInputStream();
+        //writer = new PrintWriter(output, true);
+        writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
+
 
     }
 
-    public void writeToClient (String string){
+    public void writeToClient (String string) throws IOException {
             //try {
-                PrintWriter writer = new PrintWriter(output, true);
-                writer.write(string);
+
+               // writer.print(string);
+        writer.write(string);
+        writer.flush();
       //      } catch (IOException e) {
         ////  }
     }
 
-    public ClientConnection getClient(String string){
+    public ClientConnection getClient(String string) throws IOException {
 
         al = Server.getArrayList();
         ClientConnection c = null;
@@ -77,11 +85,11 @@ public	class	ClientConnection	implements	Runnable{
     public void run(){
         try {
             try {
-                is = Server.getIs();
+                //is = Server.getIs();
                 //OutputStream output = s.getOutputStream();
                 //ObjectOutputStream oos = new ObjectOutputStream(output);
                // PrintWriter out= new PrintWriter(output,true);
-                Scanner in = new Scanner(is);
+                Scanner in = new Scanner(input);
 
                // out.println("Velkommen");
                 writeToClient("Welcome " + name);
