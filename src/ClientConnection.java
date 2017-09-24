@@ -8,7 +8,7 @@ public	class	ClientConnection	implements	Runnable{
     ArrayList <ClientConnection> al;
     OutputStream output;
     InputStream input;
-    //PrintWriter writer;
+    private static PrintWriter pwriter;
     Writer writer;
 
 
@@ -19,12 +19,16 @@ public	class	ClientConnection	implements	Runnable{
         name = input;
         System.out.println("[NAME REQUEST SAVED]");
 
+
     }
 
     public void requestPut(String input){
         String save = name + ": " + input;
         stringArray.add(save);
         System.out.println("[PUT REQUEST SAVED TO ARRAY]");
+
+            pwriter.println("hello");
+
     }
 
     public int requestCount(){
@@ -49,6 +53,7 @@ public	class	ClientConnection	implements	Runnable{
         input=s.getInputStream();
         //writer = new PrintWriter(output, true);
         writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
+        pwriter = new PrintWriter(output,true);
 
 
     }
@@ -57,7 +62,7 @@ public	class	ClientConnection	implements	Runnable{
             //try {
 
                // writer.print(string);
-        writer.write(string);
+        writer.write(string+"\n");
         writer.flush();
       //      } catch (IOException e) {
         ////  }
@@ -106,6 +111,7 @@ public	class	ClientConnection	implements	Runnable{
                             } else if (stream.substring(0, 5).equals("NAME:")) {
                                 requestName(stream.substring(5));
                                 System.out.println("Name is now: " + name);
+                                writeToClient("Name is now: "+ name);
                             } else if (stream.substring(0, 4).equals("PUT:")) {
                                 requestPut(stream.substring(4));
                                 writeToClient("Saved string: " + stringArray.get(0));

@@ -21,14 +21,18 @@ import javafx.scene.control.TextField;
 public class FXMLDocumentController implements Initializable{
 @FXML private Button buttonCount;
 @FXML private Button buttonPut;
+@FXML private Button buttonConnect;
 private static Writer writer;
+private static PrintWriter pwriter;
    private static InputStream input;
    private static OutputStream output;
 @FXML private TextField textPut;
 @FXML private TextArea textView;
     private static String what;
 private boolean done=false;
-
+private boolean open=true;
+private static Socket s;
+private static Scanner scan;
 
 private static void updateTextView (){
     //textView.setText();
@@ -38,8 +42,10 @@ private static void updateTextView (){
     }
 
     public void getConnection() {
+
     try{
-        Socket s = new Socket("127.0.0.1", 8001);
+
+        s = new Socket("127.0.0.1", 8001);
 
 
 
@@ -47,95 +53,76 @@ private static void updateTextView (){
             input = s.getInputStream();
              output = s.getOutputStream();
             writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
+            pwriter = new PrintWriter(output,true);
 
         //input scanner
-        Scanner scan = new Scanner(input);
-
-        //while(!done&& scan.hasNextLine()){
-           // what = scan.next();
-
-           // if(scan.next()=="hello"){
-                //done=false;
-          //  }
+       scan = new Scanner(input);
 
 
-
-
-
-
-
-
-
-        //}
-
+           /*if(scan.hasNextLine()){
+               String view =scan.nextLine();
+               textView.appendText(view);
+           }*/
 
 
     }   catch (IOException ex){
-        System.out.println("here2");
+
         ex.printStackTrace();
     }
-        System.out.println("hello3");
+
 }
 
-    @FXML private void handleButtonConnect(ActionEvent event){
-        buttonCount.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    System.out.println("herebeforeconnect");
-                    getConnection();
-                    System.out.println("hereinsideconnect");
-                    writer.write("COUNT");
+    @FXML private void handleButtonConnect(ActionEvent event) {
 
-                    writer.flush();
-                    writer.write("EXIT");
+        try {
 
-                    writer.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+            getConnection();
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeSocket() {
+        try {
+            s.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
 
 
 @FXML private void handleButtonCount(ActionEvent event){
-    buttonCount.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            textView.setText(what);
+    textView.clear();
+            pwriter.println("COUNT");
+    if(scan.hasNextLine()){
 
-            try{writer.write("COUNT");
+        String view =scan.nextLine();
+        textView.appendText(view);
+    }
 
-                writer.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    });
 
 
 }
 
     @FXML private void handleButtonPut(ActionEvent event){
-        buttonCount.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    System.out.println(textPut.getText());
-                    writer.write("PUT:"+textPut.getText());
-                    writer.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            textView.clear();
+
+
+                   pwriter.println("PUT:"+textPut.getText());
+                 if(scan.hasNextLine()) {
+                     String view = scan.nextLine();
+                     textView.appendText(view);
+                 }
+
+
             }
-        });
 
 
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
