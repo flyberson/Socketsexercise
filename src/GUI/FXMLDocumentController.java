@@ -17,23 +17,27 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import static java.lang.Integer.parseInt;
+
 
 public class FXMLDocumentController implements Initializable{
 @FXML private Button buttonCount;
 @FXML private Button buttonPut;
 @FXML private Button buttonConnect;
+    @FXML private Button buttonName;
 private static Writer writer;
 private static PrintWriter pwriter;
    private static InputStream input;
    private static OutputStream output;
 @FXML private TextField textPut;
+    @FXML private TextField textName;
 @FXML private TextArea textView;
     private static String what;
 private boolean done=false;
 private boolean open=true;
 private static Socket s;
 private static Scanner scan;
-
+private static int count=0;
 private static void updateTextView (){
     //textView.setText();
 }
@@ -57,7 +61,6 @@ private static void updateTextView (){
 
         //input scanner
        scan = new Scanner(input);
-
 
            /*if(scan.hasNextLine()){
                String view =scan.nextLine();
@@ -95,28 +98,51 @@ private static void updateTextView (){
 
 
 
-@FXML private void handleButtonCount(ActionEvent event){
-    textView.clear();
-            pwriter.println("COUNT");
-    if(scan.hasNextLine()){
+@FXML public void handleButtonCount() {
+    //textView.clear();
+    pwriter.println("COUNT");
+    int view;
+    String sview = null;
 
-        String view =scan.nextLine();
-        textView.appendText(view);
+
+    sview = scan.nextLine();
+    sview = sview.substring(6, 7);
+    count = parseInt(sview);
+    count -= 1;
+    int newcount = -2;
+    if (count != newcount) {
+        newcount = count;
+        //textView.appendText(sview);
+        pwriter.println("GET:" + newcount);
+        sview = scan.nextLine();
+        textView.appendText("\n" + sview);
     }
+}
+
+    @FXML private void handleButtonName(ActionEvent event){
+        //textView.clear();
+        pwriter.println("NAME:"+textName.getText());
+        String sview = null;
 
 
+        sview = scan.nextLine();
 
 }
 
     @FXML private void handleButtonPut(ActionEvent event){
-            textView.clear();
-
+            //textView.clear();
+                String view;
 
                    pwriter.println("PUT:"+textPut.getText());
-                 if(scan.hasNextLine()) {
-                     String view = scan.nextLine();
-                     textView.appendText(view);
-                 }
+                // if(scan.hasNextLine()) {
+
+         view = scan.nextLine();
+       // textView.appendText(view);
+                 //}
+
+
+
+
 
 
             }

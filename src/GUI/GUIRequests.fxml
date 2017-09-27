@@ -14,5 +14,8 @@
       <Button fx:id="buttonPut" layoutX="57.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleButtonPut" prefHeight="26.0" prefWidth="57.0" text="Put" />
       <TextArea fx:id="textView" layoutX="355.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="373.0" layoutY="21.0" text="View" />
+      <TextField fx:id="textName" layoutX="44.0" layoutY="16.0" />
+      <Label layoutX="86.0" layoutY="42.0" text="Name" />
+      <Button fx:id="changeName" layoutX="168.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleButtonName" text="Button" />
    </children>
 </AnchorPane>

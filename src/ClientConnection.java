@@ -27,7 +27,6 @@ public	class	ClientConnection	implements	Runnable{
         stringArray.add(save);
         System.out.println("[PUT REQUEST SAVED TO ARRAY]");
 
-            pwriter.println("hello");
 
     }
 
@@ -95,7 +94,7 @@ public	class	ClientConnection	implements	Runnable{
                 Scanner in = new Scanner(input);
 
                 // out.println("Velkommen");
-                writeToClient("Welcome " + name);
+                //writeToClient("Welcome " + name);
 
                 boolean done = false;
 

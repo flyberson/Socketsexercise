@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Timer;
 
 public class GUIController extends Application {
     @FXML private Button buttonCount;
@@ -32,6 +33,8 @@ public class GUIController extends Application {
 
         FXMLDocumentController controller = new FXMLDocumentController();
         controller.getConnection();
+        Timer timer = new Timer();
+        //timer.schedule(controller.handleButtonCount(),5001);
 
     }
 
