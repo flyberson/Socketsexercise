@@ -38,6 +38,8 @@ private boolean open=true;
 private static Socket s;
 private static Scanner scan;
 private static int count=0;
+private static int newcount=-2;
+private static String sview;
 private static void updateTextView (){
     //textView.setText();
 }
@@ -102,14 +104,14 @@ private static void updateTextView (){
     //textView.clear();
     pwriter.println("COUNT");
     int view;
-    String sview = null;
+
 
 
     sview = scan.nextLine();
     sview = sview.substring(6, 7);
     count = parseInt(sview);
     count -= 1;
-    int newcount = -2;
+
     if (count != newcount) {
         newcount = count;
         //textView.appendText(sview);
