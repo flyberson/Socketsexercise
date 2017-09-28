@@ -38,7 +38,7 @@ private boolean open=true;
 private static Socket s;
 private static Scanner scan;
 private static int count=0;
-private static int newcount=-2;
+private static int oldcount=0;
 private static String sview;
 private static void updateTextView (){
     //textView.setText();
@@ -110,14 +110,19 @@ private static void updateTextView (){
     sview = scan.nextLine();
     sview = sview.substring(6, 7);
     count = parseInt(sview);
-    count -= 1;
+    //count -= 1;
 
-    if (count != newcount) {
-        newcount = count;
+    if (count != oldcount) {
         //textView.appendText(sview);
-        pwriter.println("GET:" + newcount);
-        sview = scan.nextLine();
-        textView.appendText("\n" + sview);
+        for (int i = oldcount; i <= (count - 1); i++) {
+            pwriter.println("GET:" + i);
+            sview = scan.nextLine();
+            textView.appendText("\n" + sview);
+        }
+        oldcount = count;
+       // pwriter.println("GET:" + newcount);
+        //sview = scan.nextLine();
+        //textView.appendText("\n" + sview);
     }
 }
 
