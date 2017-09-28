@@ -11,6 +11,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GUIController extends Application {
     @FXML private Button buttonCount;
@@ -30,8 +32,17 @@ public class GUIController extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //FXMLDocumentController controller = new FXMLDocumentController();
-        //controller.getConnection();
+        FXMLDocumentController controller = new FXMLDocumentController();
+        controller.getConnection();
+        Timer timer = new Timer();
+        TimerTask timertask = new TimerTask() {
+            @Override
+            public void run() {
+                controller.handleButtonCount();
+            }
+        };
+        // timer doesnt work yet
+        //timer.schedule(timertask,5001);
 
     }
 

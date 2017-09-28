@@ -17,19 +17,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import static java.lang.Integer.parseInt;
+
 
 public class FXMLDocumentController implements Initializable{
 @FXML private Button buttonCount;
 @FXML private Button buttonPut;
+@FXML private Button buttonConnect;
+    @FXML private Button buttonName;
 private static Writer writer;
+private static PrintWriter pwriter;
    private static InputStream input;
    private static OutputStream output;
 @FXML private TextField textPut;
+    @FXML private TextField textName;
 @FXML private TextArea textView;
     private static String what;
 private boolean done=false;
-
-
+private boolean open=true;
+private static Socket s;
+private static Scanner scan;
+private static int count=0;
+private static int newcount=-2;
+private static String sview;
 private static void updateTextView (){
     //textView.setText();
 }
@@ -38,8 +48,10 @@ private static void updateTextView (){
     }
 
     public void getConnection() {
+
     try{
-        Socket s = new Socket("127.0.0.1", 8001);
+
+        s = new Socket("127.0.0.1", 8001);
 
 
 
@@ -47,95 +59,98 @@ private static void updateTextView (){
             input = s.getInputStream();
              output = s.getOutputStream();
             writer = new OutputStreamWriter(s.getOutputStream(), "UTF-8");
+            pwriter = new PrintWriter(output,true);
 
         //input scanner
-        Scanner scan = new Scanner(input);
+       scan = new Scanner(input);
 
-        //while(!done&& scan.hasNextLine()){
-           // what = scan.next();
-
-           // if(scan.next()=="hello"){
-                //done=false;
-          //  }
-
-
-
-
-
-
-
-
-
-        //}
-
+           /*if(scan.hasNextLine()){
+               String view =scan.nextLine();
+               textView.appendText(view);
+           }*/
 
 
     }   catch (IOException ex){
-        System.out.println("here2");
+
         ex.printStackTrace();
     }
-        System.out.println("hello3");
+
 }
 
-    @FXML private void handleButtonConnect(ActionEvent event){
-        buttonCount.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    System.out.println("herebeforeconnect");
-                    getConnection();
-                    System.out.println("hereinsideconnect");
-                    writer.write("COUNT");
+    @FXML private void handleButtonConnect(ActionEvent event) {
 
-                    writer.flush();
-                    writer.write("EXIT");
+        try {
 
-                    writer.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+            getConnection();
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeSocket() {
+        try {
+            s.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
 
 
-@FXML private void handleButtonCount(ActionEvent event){
-    buttonCount.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            textView.setText(what);
+@FXML public void handleButtonCount() {
+    //textView.clear();
+    pwriter.println("COUNT");
+    int view;
 
-            try{writer.write("COUNT");
 
-                writer.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    });
 
+    sview = scan.nextLine();
+    sview = sview.substring(6, 7);
+    count = parseInt(sview);
+    count -= 1;
+
+    if (count != newcount) {
+        newcount = count;
+        //textView.appendText(sview);
+        pwriter.println("GET:" + newcount);
+        sview = scan.nextLine();
+        textView.appendText("\n" + sview);
+    }
+}
+
+    @FXML private void handleButtonName(ActionEvent event){
+        //textView.clear();
+        pwriter.println("NAME:"+textName.getText());
+        String sview = null;
+
+
+        sview = scan.nextLine();
 
 }
 
     @FXML private void handleButtonPut(ActionEvent event){
-        buttonCount.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    System.out.println(textPut.getText());
-                    writer.write("PUT:"+textPut.getText());
-                    writer.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            //textView.clear();
+                String view;
+
+                   pwriter.println("PUT:"+textPut.getText());
+                // if(scan.hasNextLine()) {
+
+         view = scan.nextLine();
+       // textView.appendText(view);
+                 //}
+
+
+
+
+
+
             }
-        });
 
 
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
