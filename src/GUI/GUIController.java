@@ -1,11 +1,16 @@
 package GUI;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.awt.*;
 import java.io.*;
@@ -34,6 +39,18 @@ public class GUIController extends Application {
 
         FXMLDocumentController controller = new FXMLDocumentController();
         controller.getConnection();
+
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.handleButtonCount();
+            }
+        });
+
+        Timeline timeline = new Timeline(keyFrame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
         Timer timer = new Timer();
         TimerTask timertask = new TimerTask() {
             @Override

@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -12,10 +14,12 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.Timer;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 import static java.lang.Integer.parseInt;
 
@@ -112,12 +116,20 @@ private static void updateTextView (){
     count = parseInt(sview);
     //count -= 1;
 
+    if(count == oldcount){
+        textView.appendText("Nothing new\n");
+    }
+
     if (count != oldcount) {
         //textView.appendText(sview);
         for (int i = oldcount; i <= (count - 1); i++) {
             pwriter.println("GET:" + i);
             sview = scan.nextLine();
-            textView.appendText("\n" + sview);
+            try {
+                textView.appendText("\n" + sview);
+            } catch (Exception e){
+                //ignore
+            }
         }
         oldcount = count;
        // pwriter.println("GET:" + newcount);
@@ -125,6 +137,7 @@ private static void updateTextView (){
         //textView.appendText("\n" + sview);
     }
 }
+
 
     @FXML private void handleButtonName(ActionEvent event){
         //textView.clear();
