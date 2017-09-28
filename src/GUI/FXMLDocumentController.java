@@ -82,15 +82,17 @@ private static void updateTextView (){
 }
 
     @FXML private void handleButtonConnect(ActionEvent event) {
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                handleButtonCount();
+            }
+        });
 
-        try {
+        Timeline timeline = new Timeline(keyFrame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
-            getConnection();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void closeSocket() {
@@ -116,9 +118,6 @@ private static void updateTextView (){
     count = parseInt(sview);
     //count -= 1;
 
-    if(count == oldcount){
-        textView.appendText("Nothing new\n");
-    }
 
     if (count != oldcount) {
         //textView.appendText(sview);
